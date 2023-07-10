@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 class FlipACoinScreen extends StatefulWidget {
   const FlipACoinScreen({super.key});
@@ -14,12 +15,14 @@ class FlipACoinScreen extends StatefulWidget {
 class _FlipACoinScreenState extends State<FlipACoinScreen> {
   final random = Random();
 
-  late FlipCardController _controller;
+  final _player = AudioPlayer();
+  final FlipCardController _controller = FlipCardController();
 
   @override
   void initState() {
+    _player.setAsset("assets/audio/coin.wav", preload: true);
+
     super.initState();
-    _controller = FlipCardController();
   }
 
   @override
@@ -56,6 +59,8 @@ class _FlipACoinScreenState extends State<FlipACoinScreen> {
             ),
           ),
           onPressed: () async {
+            _player.seek(Duration.zero);
+            _player.play();
             for (int i = 0; i < 30; i++) {
               await Future.delayed(const Duration(milliseconds: 50));
               await _controller.toggleCard();
@@ -67,5 +72,11 @@ class _FlipACoinScreenState extends State<FlipACoinScreen> {
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
   }
 }
