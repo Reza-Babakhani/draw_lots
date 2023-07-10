@@ -77,6 +77,7 @@ class _DiceScreenState extends State<DiceScreen> {
               ),
               child: Center(
                 child: GridView(
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 150,
@@ -92,6 +93,9 @@ class _DiceScreenState extends State<DiceScreen> {
                   ],
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 50,
             )
           ]),
         ),
