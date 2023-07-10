@@ -1,3 +1,4 @@
+import 'package:draw_lots/screens/dice_screen.dart';
 import 'package:draw_lots/screens/flip_a_coin_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisSpacing: 12,
         ),
         children: [
-          ItemCard("تاس بریز", "assets/images/dice-64.png", () {}),
+          ItemCard("تاس بریز", "assets/images/dice-64.png", () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (ctx) => const DiceScreen()));
+          }),
           ItemCard("شیر یا خط", "assets/images/coin-toss-64.png", () {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (ctx) => const FlipACoinScreen()));

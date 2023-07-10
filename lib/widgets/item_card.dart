@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
@@ -23,15 +22,20 @@ class ItemCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image(
-                image: AssetImage(image),
-                height: 150,
+              Image.asset(
+                image,
+              ),
+              const SizedBox(
+                height: 20,
               ),
               Text(
                 title,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               )
             ],
           ),
