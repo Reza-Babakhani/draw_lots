@@ -18,7 +18,7 @@ class _DiceScreenState extends State<DiceScreen> {
 
   @override
   void initState() {
-    _player.setAsset("assets/audio/dice.mp3", preload: true);
+    _player.setAsset("assets/audio/dice.wav", preload: true);
 
     super.initState();
   }
@@ -109,8 +109,8 @@ class _DiceScreenState extends State<DiceScreen> {
             ),
           ),
           onPressed: () async {
-            await _player.seek(Duration.zero);
-            await _player.play();
+            _player.seek(Duration.zero);
+            _player.play();
 
             await Future.delayed(const Duration(milliseconds: 100));
             for (int i = 0; i < _diceCount; i++) {
