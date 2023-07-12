@@ -1,6 +1,7 @@
 import 'package:draw_lots/screens/dice_screen.dart';
 import 'package:draw_lots/screens/flip_a_coin_screen.dart';
 import 'package:draw_lots/screens/rps_screen.dart';
+import 'package:draw_lots/screens/yes_no_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/item_card.dart';
@@ -67,7 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
           }),
           ItemCard("قرعه کشی", "assets/images/raffle-64.png", () {}),
           ItemCard("عدد تصادفی", "assets/images/lottery-64.png", () {}),
-          ItemCard("بله/خیر", "assets/images/yesno-64.png", () {}),
+          ItemCard("بله/خیر", "assets/images/yesno-64.png", () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (ctx) => const YesNoScreen()));
+          }),
         ],
       ),
     );
