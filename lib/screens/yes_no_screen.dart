@@ -11,17 +11,23 @@ class YesNoScreen extends StatefulWidget {
 }
 
 class _YesNoScreenState extends State<YesNoScreen> {
-  final random = Random();
+  final _random = Random();
   bool _yes = false;
   bool _show = false;
   final _player = AudioPlayer();
 
   double _height = 100;
-  @override
-  void initState() {
-    _player.setAsset("assets/audio/slap.wav", preload: true);
 
-    super.initState();
+  bool _isLoad = true;
+  @override
+  void didChangeDependencies() async {
+    if (_isLoad) {
+      await _player.setAsset("assets/audio/slap.wav");
+      await _player.load();
+
+      _isLoad = false;
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -63,7 +69,7 @@ class _YesNoScreenState extends State<YesNoScreen> {
             await Future.delayed(const Duration(milliseconds: 200));
             setState(() {
               _show = true;
-              _yes = random.nextBool();
+              _yes = _random.nextBool();
               _height = 150;
             });
 

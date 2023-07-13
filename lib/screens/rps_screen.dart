@@ -11,16 +11,21 @@ class RPSScreen extends StatefulWidget {
 }
 
 class _RPSScreenState extends State<RPSScreen> {
-  final random = Random();
+  final _random = Random();
   int _rps = 0; //0,1,2 rock,paper,scissors
   final _player = AudioPlayer();
 
   double _height = 100;
-  @override
-  void initState() {
-    _player.setAsset("assets/audio/clap1.wav", preload: true);
 
-    super.initState();
+  bool _isLoad = true;
+  @override
+  void didChangeDependencies() async {
+    if (_isLoad) {
+      await _player.setAsset("assets/audio/clap1.wav");
+      await _player.load();
+      _isLoad = false;
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -68,7 +73,7 @@ class _RPSScreenState extends State<RPSScreen> {
               });
             }
             setState(() {
-              _rps = random.nextInt(3);
+              _rps = _random.nextInt(3);
             });
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

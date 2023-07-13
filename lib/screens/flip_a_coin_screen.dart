@@ -13,16 +13,20 @@ class FlipACoinScreen extends StatefulWidget {
 }
 
 class _FlipACoinScreenState extends State<FlipACoinScreen> {
-  final random = Random();
+  final _random = Random();
 
   final _player = AudioPlayer();
   final FlipCardController _controller = FlipCardController();
 
+  bool _isLoad = true;
   @override
-  void initState() {
-    _player.setAsset("assets/audio/coin.wav", preload: true);
-
-    super.initState();
+  void didChangeDependencies() async {
+    if (_isLoad) {
+      await _player.setAsset("assets/audio/coin.wav");
+      await _player.load();
+      _isLoad = false;
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -65,7 +69,7 @@ class _FlipACoinScreenState extends State<FlipACoinScreen> {
               await Future.delayed(const Duration(milliseconds: 50));
               await _controller.toggleCard();
             }
-            if (random.nextBool()) {
+            if (_random.nextBool()) {
               await Future.delayed(const Duration(milliseconds: 50));
               await _controller.toggleCard();
             }
@@ -77,6 +81,7 @@ class _FlipACoinScreenState extends State<FlipACoinScreen> {
   @override
   void dispose() {
     _player.dispose();
+
     super.dispose();
   }
 }

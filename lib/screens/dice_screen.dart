@@ -11,16 +11,20 @@ class DiceScreen extends StatefulWidget {
 }
 
 class _DiceScreenState extends State<DiceScreen> {
-  final random = Random();
+  final _random = Random();
   final _player = AudioPlayer();
   int _diceCount = 1;
   List<int> _diceValues = List.filled(1, 6);
 
+  bool _isLoad = true;
   @override
-  void initState() {
-    _player.setAsset("assets/audio/dice.wav", preload: true);
-
-    super.initState();
+  void didChangeDependencies() async {
+    if (_isLoad) {
+      await _player.setAsset("assets/audio/dice.wav"); //TODO error on load
+      await _player.load();
+      _isLoad = false;
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -115,7 +119,7 @@ class _DiceScreenState extends State<DiceScreen> {
             await Future.delayed(const Duration(milliseconds: 100));
             for (int i = 0; i < _diceCount; i++) {
               setState(() {
-                _diceValues[i] = random.nextInt(5) + 1;
+                _diceValues[i] = _random.nextInt(5) + 1;
               });
             }
           }),
