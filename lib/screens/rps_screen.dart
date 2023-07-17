@@ -21,7 +21,7 @@ class _RPSScreenState extends State<RPSScreen> {
   @override
   void didChangeDependencies() async {
     if (_isLoad) {
-      await _player.setAsset("assets/audio/clap1.wav");
+      await _player.setAsset("assets/audio/clap.wav");
       await _player.load();
       _isLoad = false;
     }

@@ -15,7 +15,8 @@ class _RangeScreenState extends State<RangeScreen> {
   final _player = AudioPlayer();
   final _fromController = TextEditingController();
   final _toController = TextEditingController();
-  int _result = 1;
+  int _result = -1;
+  bool _spinning = false;
   bool _error = false;
   @override
   void initState() {
@@ -29,7 +30,7 @@ class _RangeScreenState extends State<RangeScreen> {
   @override
   void didChangeDependencies() async {
     if (_isLoad) {
-      await _player.setAsset("assets/audio/coin.wav");
+      await _player.setAsset("assets/audio/lottery.mp3");
       await _player.load();
       _isLoad = false;
     }
@@ -98,9 +99,29 @@ class _RangeScreenState extends State<RangeScreen> {
                   "اعداد انتخابی معتبر نیستند",
                   style: TextStyle(color: Colors.red),
                 )
-              : Container(
-                  child: Text(_result.toString()),
-                ),
+              : Center(
+                  child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    _spinning
+                        ? const CircleAvatar(
+                            radius: 100,
+                            backgroundImage:
+                                AssetImage("assets/images/lottery.gif"),
+                          )
+                        : Container(),
+                    _result < 0
+                        ? Container()
+                        : CircleAvatar(
+                            backgroundColor: Colors.yellow,
+                            child: Text(
+                              "$_result",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          )
+                  ],
+                )),
         ]),
       ),
       floatingActionButton: ElevatedButton(
@@ -115,8 +136,11 @@ class _RangeScreenState extends State<RangeScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          onPressed: () async {
-            _error = false;
+          onPressed: () {
+            setState(() {
+              _error = false;
+              _result = -1;
+            });
             int from = int.parse(_fromController.text);
             int to = int.parse(_toController.text);
 
@@ -129,11 +153,19 @@ class _RangeScreenState extends State<RangeScreen> {
             }
 
             setState(() {
-              _result = __random.nextInt(to - from) + from;
+              _spinning = true;
             });
-            /* await Future.delayed(const Duration(milliseconds: 100));
-            await _player.seek(Duration.zero);
-            await _player.play(); */
+
+            _player.seek(Duration.zero);
+            _player.play();
+
+            Future.delayed(const Duration(seconds: 5)).whenComplete(() {
+              setState(() {
+                _result = __random.nextInt(to - from) + from;
+                _spinning = false;
+              });
+            });
+
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
