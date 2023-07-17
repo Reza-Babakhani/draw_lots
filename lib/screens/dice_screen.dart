@@ -20,7 +20,7 @@ class _DiceScreenState extends State<DiceScreen> {
   @override
   void didChangeDependencies() async {
     if (_isLoad) {
-      await _player.setAsset("assets/audio/dice.wav"); //TODO Error on Load
+      await _player.setAsset("assets/audio/dice.mp3"); //TODO Error on Load
       await _player.load();
       _isLoad = false;
     }
@@ -92,7 +92,7 @@ class _DiceScreenState extends State<DiceScreen> {
                   children: [
                     ...[
                       for (int i = 0; i < _diceCount; i++)
-                        Image.asset("assets/images/${_diceValues[i]}-64.png"),
+                        Image.asset("assets/images/${_diceValues[i]}.png"),
                     ]
                   ],
                 ),
