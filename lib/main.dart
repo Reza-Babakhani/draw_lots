@@ -1,5 +1,6 @@
 import 'package:draw_lots/screens/dice_screen.dart';
 import 'package:draw_lots/screens/flip_a_coin_screen.dart';
+import 'package:draw_lots/screens/lottery_screen.dart';
 import 'package:draw_lots/screens/range_screen.dart';
 import 'package:draw_lots/screens/rps_screen.dart';
 import 'package:draw_lots/screens/yes_no_screen.dart';
@@ -67,7 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const RPSScreen()));
           }),
-          ItemCard("قرعه کشی", "assets/images/raffle-64.png", () {}),
+          ItemCard("قرعه‌کشی", "assets/images/raffle-64.png", () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (ctx) => const LotteryScreen()));
+          }),
           ItemCard("عدد تصادفی", "assets/images/lottery-64.png", () {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const RangeScreen()));

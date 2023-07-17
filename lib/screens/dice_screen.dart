@@ -20,7 +20,7 @@ class _DiceScreenState extends State<DiceScreen> {
   @override
   void didChangeDependencies() async {
     if (_isLoad) {
-      await _player.setAsset("assets/audio/dice.mp3"); //TODO Error on Load
+      await _player.setAsset("assets/audio/dice.mp3");
       await _player.load();
       _isLoad = false;
     }
