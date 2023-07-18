@@ -5,11 +5,18 @@ import 'package:draw_lots/screens/range_screen.dart';
 import 'package:draw_lots/screens/rps_screen.dart';
 import 'package:draw_lots/screens/yes_no_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:tapsell_plus/tapsell_plus.dart';
 
 import 'widgets/item_card.dart';
 
 void main() {
   runApp(const MyApp());
+
+  const appId =
+      "hdbkogiotinqmpdkglnbiqbpsinajgrfkghskpllaqdgthatefmqihlmkfeehjagpdpsrj";
+  TapsellPlus.instance.setDebugMode(LogLevel.Verbose);
+  TapsellPlus.instance.initialize(appId);
+  TapsellPlus.instance.setGDPRConsent(true);
 }
 
 class MyApp extends StatelessWidget {
@@ -39,6 +46,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Future<void> ad() async {
+    String adId = await TapsellPlus.instance
+        .requestInterstitialAd("64b6d9414bf57453cab342aa");
+
+    await TapsellPlus.instance.showInterstitialAd(adId, onOpened: (map) {
+      // Ad opened
+    }, onError: (map) {
+      // Error when showing ad
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,26 +75,32 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         children: [
           ItemCard("تاس بریز", "assets/images/dice-64.png", () {
+            ad();
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const DiceScreen()));
           }),
           ItemCard("شیر یا خط", "assets/images/coin-toss-64.png", () {
+            ad();
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (ctx) => const FlipACoinScreen()));
           }),
           ItemCard("سنگ، کاغذ، قیچی", "assets/images/rps-64.png", () {
+            ad();
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const RPSScreen()));
           }),
           ItemCard("قرعه‌کشی", "assets/images/raffle-64.png", () {
+            ad();
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (ctx) => const LotteryScreen()));
           }),
           ItemCard("عدد تصادفی", "assets/images/lottery-64.png", () {
+            ad();
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const RangeScreen()));
           }),
           ItemCard("بله/خیر", "assets/images/yesno-64.png", () {
+            ad();
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const YesNoScreen()));
           }),

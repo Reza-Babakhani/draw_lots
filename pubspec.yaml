@@ -34,7 +34,7 @@ dependencies:
     just_audio: ^0.9.34
     flip_card: ^0.7.0
     confetti: ^0.7.0
-
+    tapsell_plus: ^2.1.6
     cupertino_icons: ^1.0.2
 
 dev_dependencies:
@@ -47,6 +47,9 @@ dev_dependencies:
     # package. See that file for information about deactivating specific lint
     # rules and activating additional ones.
     flutter_lints: ^2.0.0
+    change_app_package_name: ^1.1.0
+    flutter_launcher_icons: "^0.13.1"
+    flutter_native_splash: ^2.3.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -88,3 +91,7 @@ flutter:
     #
     # For details regarding fonts from package dependencies,
     # see https://flutter.dev/custom-fonts/#from-packages
+
+
+flutter_native_splash:
+    color: "#ffffff"

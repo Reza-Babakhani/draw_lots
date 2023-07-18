@@ -1,4 +1,4 @@
-package com.example.draw_lots
+package ir.rezababakhani.drawlots
 
 import io.flutter.embedding.android.FlutterActivity
 
