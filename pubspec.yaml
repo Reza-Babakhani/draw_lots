@@ -34,8 +34,9 @@ dependencies:
     just_audio: ^0.9.34
     flip_card: ^0.7.0
     confetti: ^0.7.0
-    tapsell_plus: ^2.1.6
+    #tapsell_plus: ^2.1.7
     cupertino_icons: ^1.0.2
+    adivery: ^4.6.1
 
 dev_dependencies:
     flutter_test:
@@ -91,7 +92,6 @@ flutter:
     #
     # For details regarding fonts from package dependencies,
     # see https://flutter.dev/custom-fonts/#from-packages
-
 
 flutter_native_splash:
     color: "#ffffff"

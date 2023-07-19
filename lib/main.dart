@@ -5,18 +5,20 @@ import 'package:draw_lots/screens/range_screen.dart';
 import 'package:draw_lots/screens/rps_screen.dart';
 import 'package:draw_lots/screens/yes_no_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:tapsell_plus/tapsell_plus.dart';
+//import 'package:tapsell_plus/tapsell_plus.dart';
+import 'package:adivery/adivery.dart';
+import 'package:adivery/adivery_ads.dart';
 
 import 'widgets/item_card.dart';
 
 void main() {
   runApp(const MyApp());
 
-  const appId =
+  /*  const appId =
       "hdbkogiotinqmpdkglnbiqbpsinajgrfkghskpllaqdgthatefmqihlmkfeehjagpdpsrj";
   TapsellPlus.instance.setDebugMode(LogLevel.Verbose);
   TapsellPlus.instance.initialize(appId);
-  TapsellPlus.instance.setGDPRConsent(true);
+  TapsellPlus.instance.setGDPRConsent(true); */
 }
 
 class MyApp extends StatelessWidget {
@@ -46,15 +48,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<void> ad() async {
-    String adId = await TapsellPlus.instance
-        .requestInterstitialAd("64b6d9414bf57453cab342aa");
+  String adId = "951de443-da8b-410e-a537-7ec818fabdfd";
 
-    await TapsellPlus.instance.showInterstitialAd(adId, onOpened: (map) {
-      // Ad opened
-    }, onError: (map) {
-      // Error when showing ad
-    });
+  @override
+  void initState() {
+    super.initState();
+
+    AdiveryPlugin.initialize("aa5acf60-550b-49af-96c3-44283df12e85");
+    AdiveryPlugin.prepareRewardedAd(adId);
+  }
+
+  Future<void> ad() async {
+    AdiveryPlugin.prepareRewardedAd(adId);
+    //await Future.delayed(const Duration(seconds: 3));
+    AdiveryPlugin.isLoaded(adId)
+        .then((isLoaded) => showPlacement(isLoaded!, adId));
+  }
+
+  void showPlacement(bool isLoaded, String placementId) {
+    if (isLoaded) {
+      AdiveryPlugin.show(placementId);
+    }
   }
 
   @override
@@ -78,31 +92,37 @@ class _MyHomePageState extends State<MyHomePage> {
             ad();
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const DiceScreen()));
+            AdiveryPlugin.prepareRewardedAd(adId);
           }),
           ItemCard("شیر یا خط", "assets/images/coin-toss-64.png", () {
             ad();
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (ctx) => const FlipACoinScreen()));
+            AdiveryPlugin.prepareRewardedAd(adId);
           }),
           ItemCard("سنگ، کاغذ، قیچی", "assets/images/rps-64.png", () {
             ad();
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const RPSScreen()));
+            AdiveryPlugin.prepareRewardedAd(adId);
           }),
           ItemCard("قرعه‌کشی", "assets/images/raffle-64.png", () {
             ad();
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (ctx) => const LotteryScreen()));
+            AdiveryPlugin.prepareRewardedAd(adId);
           }),
           ItemCard("عدد تصادفی", "assets/images/lottery-64.png", () {
             ad();
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const RangeScreen()));
+            AdiveryPlugin.prepareRewardedAd(adId);
           }),
           ItemCard("بله/خیر", "assets/images/yesno-64.png", () {
             ad();
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (ctx) => const YesNoScreen()));
+            AdiveryPlugin.prepareRewardedAd(adId);
           }),
         ],
       ),

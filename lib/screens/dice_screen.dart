@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -22,8 +21,10 @@ class _DiceScreenState extends State<DiceScreen> {
     if (_isLoad) {
       await _player.setAsset("assets/audio/dice.mp3");
       await _player.load();
+
       _isLoad = false;
     }
+
     super.didChangeDependencies();
   }
 
@@ -60,7 +61,7 @@ class _DiceScreenState extends State<DiceScreen> {
                 IconButton.filledTonal(
                   onPressed: _diceCount >= 9
                       ? null
-                      : () {
+                      : () async {
                           setState(() {
                             _diceCount++;
                             _diceValues = List.filled(_diceCount, 6);
