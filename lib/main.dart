@@ -5,20 +5,13 @@ import 'package:draw_lots/screens/range_screen.dart';
 import 'package:draw_lots/screens/rps_screen.dart';
 import 'package:draw_lots/screens/yes_no_screen.dart';
 import 'package:flutter/material.dart';
-//import 'package:tapsell_plus/tapsell_plus.dart';
 import 'package:adivery/adivery.dart';
-import 'package:adivery/adivery_ads.dart';
 
 import 'widgets/item_card.dart';
 
 void main() {
   runApp(const MyApp());
 
-  /*  const appId =
-      "hdbkogiotinqmpdkglnbiqbpsinajgrfkghskpllaqdgthatefmqihlmkfeehjagpdpsrj";
-  TapsellPlus.instance.setDebugMode(LogLevel.Verbose);
-  TapsellPlus.instance.initialize(appId);
-  TapsellPlus.instance.setGDPRConsent(true); */
 }
 
 class MyApp extends StatelessWidget {
@@ -60,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> ad() async {
     AdiveryPlugin.prepareRewardedAd(adId);
-    //await Future.delayed(const Duration(seconds: 3));
+   
     AdiveryPlugin.isLoaded(adId)
         .then((isLoaded) => showPlacement(isLoaded!, adId));
   }
